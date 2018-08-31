@@ -14,12 +14,7 @@ let lessExtractWebpack = new ExtractWebpack({
     disable: false,
 })
 //区别开发环境与生产环境
-let host = "";
-if (isDev === 'bate') {
-    host = "bate.m.jd.com"
-} else if (isDev === 'api') {
-    host = "api.m.jd.com"
-}
+let host = isDev ? "bate.m.jd.com" :"api.m.jd.com";
 module.exports = {
     entry: "./src/index.js",
     mode: "development",
@@ -49,7 +44,6 @@ module.exports = {
     },
     plugins: [
         new webpack.DefinePlugin({
-            _dev_: "11111",
             serverDomain: JSON.stringify(host),
         }),
         new webpack.HotModuleReplacementPlugin(),
