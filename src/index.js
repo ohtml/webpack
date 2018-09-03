@@ -1,6 +1,6 @@
 document.getElementById("app").innerHTML = ".3333666644444444";
-import "./app.css";
-
+import "./css/app.css";
+import "./css/less.less";
 
 
 if(module.hot){

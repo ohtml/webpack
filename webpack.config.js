@@ -7,11 +7,11 @@ let isDev = process.env.NODE_ENV;
 
 let cssExtractWebpack = new ExtractWebpack({
     filename: "./src/app.css",
-    disable: true
+    disable: true,
 })
 let lessExtractWebpack = new ExtractWebpack({
-    filename: "./less.less",
-    disable: false,
+    filename: "./src/app.less",
+    disable: true,
 })
 //区别开发环境与生产环境
 let host = isDev ? "bate.m.jd.com" :"api.m.jd.com";
@@ -29,8 +29,18 @@ module.exports = {
                     fallback: "style-loader",
                     use: "css-loader"
                 })
-            }, {
-                test: /\.(png|jpg|gif)/,
+            }, 
+            {
+                test:/\.less$/,use:lessExtractWebpack.extract({
+                    fallback:"style-loader",
+                    use:[
+                        "css-loader","less-loader"
+                    ]
+                })
+
+            },
+            {
+                test: /\.(png|jpg|gif)$/,
                 use: [{
                     loader: "url-loader",
                     options: {
@@ -38,6 +48,21 @@ module.exports = {
                         outpubPath: "img/"
                     }
                 }]
+            },
+            {
+                test:/\.html/,
+                use:"html-withimg-loader"
+            },
+            {
+                test:/\/jsx?/,
+                use:[
+                    {
+                        laoder:"babel-loader",
+                        options:{
+                            presets:["env","state-0"]
+                        }
+                    }
+                ]
             }
 
         ]
@@ -51,6 +76,7 @@ module.exports = {
             template: "./src/index.html"//模板
         }),
         cssExtractWebpack,
+        lessExtractWebpack,
     ],
     devServer: {
         contentBase: "./dist",

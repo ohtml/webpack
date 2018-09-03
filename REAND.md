@@ -6,6 +6,11 @@
      html-webpack-plugin //html 抽离html :里面的参数 filename 输出文件名 template 模板
      extract-text-webpack-plugin@next //样式抽离
 ```
+
+####  安less
+```
+npm install less less-loader
+```
 #### 热更新
 ```
     if(module.hot){
@@ -31,3 +36,4 @@
     file-loader
     url-loader
 ```
+
