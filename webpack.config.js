@@ -1,86 +1,70 @@
-
 let path = require("path");
 let webpack = require("webpack");
+let clenWebapck = require("clean-webpack-plugin");
 let HtmlWebpack = require("html-webpack-plugin");
-let ExtractWebpack = require("extract-text-webpack-plugin");
-let isDev = process.env.NODE_ENV;
-
-let cssExtractWebpack = new ExtractWebpack({
-    filename: "./src/app.css",
-    disable: true,
+let ExtractText = require("extract-text-webpack-plugin");
+let isEnv = process.env.NODE_ENV;
+let cssExtractText = new ExtractText({
+    filename: "css/css.css",
+    disable: false,
 })
-let lessExtractWebpack = new ExtractWebpack({
-    filename: "./src/app.less",
-    disable: true,
-})
-//区别开发环境与生产环境
-let host = isDev ? "bate.m.jd.com" :"api.m.jd.com";
 module.exports = {
     entry: "./src/index.js",
-    mode: "development",
     output: {
-        filename: "app.js",
-        path: path.join(__dirname, "dist"),
+        filename: "js/index.js",
+        path: path.join(__filename, "dist")
     },
+    mode: "development",
     module: {
         rules: [
             {
-                test: /\.css$/, use: cssExtractWebpack.extract({
+                test: /\.css$/,
+                use: cssExtractText.extract({
                     fallback: "style-loader",
-                    use: "css-loader"
+                    use: ["css-loader", "postcss-loader"]
                 })
-            }, 
-            {
-                test:/\.less$/,use:lessExtractWebpack.extract({
-                    fallback:"style-loader",
-                    use:[
-                        "css-loader","less-loader"
-                    ]
-                })
-
             },
             {
-                test: /\.(png|jpg|gif)$/,
-                use: [{
-                    loader: "url-loader",
-                    options: {
-                        limit: 5,
-                        outpubPath: "img/"
-                    }
-                }]
+                test: /\.less$/,
+                use: cssExtractText.extract({
+                    fallback: "style-loader",
+                    use: [
+                        "css-loader", "less-loader"
+                    ]
+                })
+            },
+            {
+              test:/\.(png|jpg|gif)$/,
+              use:[
+                  {
+                      loader:"url-loader",
+                      options:{
+                          limit:5
+                      }
+                  }
+              ]
             },
             {
                 test:/\.html/,
                 use:"html-withimg-loader"
-            },
-            {
-                test:/\/jsx?/,
-                use:[
-                    {
-                        laoder:"babel-loader",
-                        options:{
-                            presets:["env","state-0"]
-                        }
-                    }
-                ]
             }
-
         ]
     },
     plugins: [
         new webpack.DefinePlugin({
-            serverDomain: JSON.stringify(host),
+            _isDev_:JSON.stringify(isEnv)
         }),
+        cssExtractText,
         new webpack.HotModuleReplacementPlugin(),
+        new clenWebapck(["dist"]),
         new HtmlWebpack({
-            template: "./src/index.html"//模板
-        }),
-        cssExtractWebpack,
-        lessExtractWebpack,
+            filename:"index.html",
+            template:"./src/index.html"
+        })
     ],
     devServer: {
         contentBase: "./dist",
+        port: "5000",
         hot: true,
-        port: 3000
     }
 }

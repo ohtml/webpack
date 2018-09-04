@@ -6,4 +6,4 @@ import "./css/less.less";
 if(module.hot){
     module.hot.accept();
 }
-console.log(serverDomain);
+console.log(_isDev_);
