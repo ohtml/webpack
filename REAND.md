@@ -89,7 +89,31 @@ npm install less less-loader
      definPlugin
      hot.. //热更新
 ```
-
+### 多页面
+```
+module.exports ={
+    entry:{
+        pageA:'./src/pageA',
+        pageB:'./src/pageB'
+    },
+    output:{
+        path:path.resolve('dist'),
+        filename:'[name].js'
+    },
+    plugins:[
+        new HtmlWebpackPlugin({
+            template:'./src/index.html',
+            filename:'pageA.html',
+            chunks:['pageA']
+        }),
+        new HtmlWebpackPlugin({
+            template:'./src/index.html',
+            filename:'pageB.html',
+            chunks:['pageB']
+        })
+    ]
+}
+```
 ## 单词
 ```
   definPlugin  //定义

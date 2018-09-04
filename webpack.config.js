@@ -35,32 +35,34 @@ module.exports = {
                 })
             },
             {
-              test:/\.(png|jpg|gif)$/,
-              use:[
-                  {
-                      loader:"url-loader",
-                      options:{
-                          limit:5
-                      }
-                  }
-              ]
+                test:/\.(gif|jpg|jpeg|png|bmp|eot|woff|woff2|ttf|svg)$/,
+                use:[
+                    {
+                        loader:'url-loader',
+                        options:{
+                            limit:4096,
+                            outputPath:'img',
+                            publicPath:'/img'
+                        }
+                    }
+                ]
             },
             {
-                test:/\.html/,
-                use:"html-withimg-loader"
+                test: /\.html/,
+                use: "html-withimg-loader"
             }
         ]
     },
     plugins: [
         new webpack.DefinePlugin({
-            _isDev_:JSON.stringify(isEnv)
+            _isDev_: JSON.stringify(isEnv)
         }),
         cssExtractText,
         new webpack.HotModuleReplacementPlugin(),
         //new clenWebapckPlugin(['dist']),
         new HtmlWebpack({
-            filename:"index.html",
-            template:"./src/index.html"
+            filename: "index.html",
+            template: "./src/index.html"
         })
     ],
     devServer: {
