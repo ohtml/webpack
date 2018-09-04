@@ -4,9 +4,10 @@ let clenWebapck = require("clean-webpack-plugin");
 let HtmlWebpack = require("html-webpack-plugin");
 let ExtractText = require("extract-text-webpack-plugin");
 let isEnv = process.env.NODE_ENV;
+let isDev = process.env.NODE_ENV === "bate";
 let cssExtractText = new ExtractText({
     filename: "css/css.css",
-    disable: false,
+    disable: isDev,
 })
 module.exports = {
     entry: "./src/index.js",
@@ -56,7 +57,7 @@ module.exports = {
         }),
         cssExtractText,
         new webpack.HotModuleReplacementPlugin(),
-        new clenWebapck(["dist"]),
+        new clenWebapck(['dist']),
         new HtmlWebpack({
             filename:"index.html",
             template:"./src/index.html"

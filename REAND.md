@@ -94,5 +94,6 @@ npm install less less-loader
 ```
   definPlugin  //定义
   process
+  limit
 
 ```
