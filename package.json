@@ -6,7 +6,7 @@
   "scripts": {
     "bate": "cross-env NODE_ENV=bate webpack-dev-server",
     "api": "cross-env NODE_ENV=api webpack-dev-server",
-    "dist": "cross-env NODE_ENV=bate webpack",
+    "webpack":"cross-env NODE_ENV=bate webpack",
     "dev": "webpack-dev-server"
   },
   "repository": {
@@ -19,11 +19,10 @@
     "url": "https://github.com/ohtml/webpack/issues"
   },
   "homepage": "https://github.com/ohtml/webpack#readme",
-  "dependencies": {
-    "clean-webpack-plugin": "^0.1.19"
-  },
+  "dependencies": {},
   "devDependencies": {
     "autoprefixer": "^9.1.3",
+    "clean-webpack-plugin": "^0.1.19",
     "cross-env": "^5.2.0",
     "css-loader": "^1.0.0",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",

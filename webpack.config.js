@@ -1,6 +1,6 @@
 let path = require("path");
 let webpack = require("webpack");
-let clenWebapck = require("clean-webpack-plugin");
+let clenWebapckPlugin = require("clean-webpack-plugin");
 let HtmlWebpack = require("html-webpack-plugin");
 let ExtractText = require("extract-text-webpack-plugin");
 let isEnv = process.env.NODE_ENV;
@@ -57,7 +57,7 @@ module.exports = {
         }),
         cssExtractText,
         new webpack.HotModuleReplacementPlugin(),
-        new clenWebapck(['dist']),
+        //new clenWebapckPlugin(['dist']),
         new HtmlWebpack({
             filename:"index.html",
             template:"./src/index.html"
