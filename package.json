@@ -4,10 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "bate": "cross-env NODE_ENV=bate webpack-dev-server",
+    "dev": "cross-env NODE_ENV=bate webpack-dev-server",
     "api": "cross-env NODE_ENV=api webpack-dev-server",
-    "webpack":"cross-env NODE_ENV=bate webpack",
-    "dev": "webpack-dev-server"
+    "webpack": "cross-env NODE_ENV=bate webpack"
   },
   "repository": {
     "type": "git",

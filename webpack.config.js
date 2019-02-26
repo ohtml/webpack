@@ -6,11 +6,11 @@ let ExtractText = require("extract-text-webpack-plugin");
 let isEnv = process.env.NODE_ENV;
 let isDev = process.env.NODE_ENV === "bate";
 let cssExtractText = new ExtractText({
-    filename: "css/css.css",
+    filename: "css/[name].css",
     disable: isDev,
 })
 module.exports = {
-    entry: "./src/index.js",
+    entry: "./src/app.js",
     output: {
         filename: "js/index.js",
         path: path.join(__filename, "dist")
